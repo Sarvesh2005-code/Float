@@ -60,25 +60,55 @@ export default function AdminPage() {
                         Upload New Game
                     </h2>
 
-                    <form className="space-y-4">
+                    <form
+                        className="space-y-4"
+                        onSubmit={async (e) => {
+                            e.preventDefault();
+                            const form = e.target as HTMLFormElement;
+                            const formData = new FormData(form);
+
+                            try {
+                                const { collection, addDoc, serverTimestamp } = await import("firebase/firestore");
+                                const { db } = await import("@/lib/firebase");
+
+                                await addDoc(collection(db, "games"), {
+                                    title: formData.get("title"),
+                                    genre: formData.get("genre"),
+                                    description: formData.get("description"),
+                                    thumbnailUrl: formData.get("thumbnailUrl"),
+                                    playUrl: formData.get("playUrl"),
+                                    type: "web", // Default for now
+                                    createdAt: serverTimestamp(),
+                                    visits: 0
+                                });
+
+                                alert("Game deployed successfully!");
+                                form.reset();
+                            } catch (err) {
+                                console.error(err);
+                                alert("Deployment failed. Check console.");
+                            }
+                        }}
+                    >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm text-gray-400">Game Title</label>
-                                <input className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none" placeholder="e.g. Cyber Drift" />
+                                <input name="title" required className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none" placeholder="e.g. Cyber Drift" />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm text-gray-400">Genre</label>
-                                <select className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none">
+                                <select name="genre" className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none">
                                     <option>Action</option>
                                     <option>RPG</option>
                                     <option>Strategy</option>
+                                    <option>Arcade</option>
                                 </select>
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm text-gray-400">Description</label>
-                            <textarea className="w-full bg-void-light border border-white/10 rounded p-2 h-24 focus:border-nebula outline-none" placeholder="Enter game description..." />
+                            <textarea name="description" required className="w-full bg-void-light border border-white/10 rounded p-2 h-24 focus:border-nebula outline-none" placeholder="Enter game description..." />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -86,19 +116,18 @@ export default function AdminPage() {
                                 <label className="text-sm text-gray-400 flex items-center gap-2">
                                     <ImageIcon className="w-4 h-4" /> Thumbnail URL
                                 </label>
-                                <input className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none" placeholder="/games/icon.png" />
-                                <p className="text-xs text-gray-500">Place file in public/games/</p>
+                                <input name="thumbnailUrl" required className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none" placeholder="https://..." />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm text-gray-400 flex items-center gap-2">
                                     <LinkIcon className="w-4 h-4" /> Download/Play Link
                                 </label>
-                                <input className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none" placeholder="https://github.com/..." />
+                                <input name="playUrl" required className="w-full bg-void-light border border-white/10 rounded p-2 focus:border-nebula outline-none" placeholder="https://..." />
                             </div>
                         </div>
 
-                        <button type="button" className="w-full py-3 bg-nebula hover:bg-nebula-dim rounded font-bold transition-colors">
-                            Deploy to Portal
+                        <button type="submit" className="w-full py-3 bg-nebula hover:bg-nebula-dim rounded font-bold transition-colors flex items-center justify-center gap-2">
+                            <Upload className="w-4 h-4" /> Deploy to Portal
                         </button>
                     </form>
                 </div>

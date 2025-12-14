@@ -2,8 +2,10 @@
 
 :root {
   /* Starry Void Theme */
-  --void: #030305;
-  /* Deepest Black */
+  --background: #0a0a0f;
+  --foreground: #ededed;
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-inter: 'Inter', sans-serif;
   --void-light: #0a0a12;
   /* Slightly Lighter */
   --starlight: #ffffff;
