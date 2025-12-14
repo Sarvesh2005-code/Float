@@ -1,24 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import { Ghost, Upload, Link as LinkIcon, Image as ImageIcon } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Ghost, Upload, Link as LinkIcon, Image as ImageIcon, ShieldAlert } from "lucide-react";
+import { useAuth } from "@/components/auth-provider";
+import { useRouter } from "next/navigation";
 
 export default function AdminPage() {
-    const [isAuthorized, setIsAuthorized] = useState(false); // Temporary mock
+    const { user, loading, signInWithGoogle } = useAuth();
+    const router = useRouter();
 
-    if (!isAuthorized) {
+    // Simple Admin Check (Replace with Firestore Role in production)
+    // For now, only the verifiable owner (you) or a hardcoded list
+    const ADMIN_EMAILS = ["sarveshnakhale21@gmail.com", "ideayaan@gmail.com"];
+    const isAuthorized = user && user.email && ADMIN_EMAILS.includes(user.email);
+
+    if (loading) return <div className="min-h-screen bg-void flex items-center justify-center text-starlight animate-pulse">Initializing Link...</div>;
+
+    if (!user || !isAuthorized) {
         return (
             <main className="min-h-screen bg-void flex items-center justify-center text-starlight">
                 <div className="glass-panel p-8 rounded-xl max-w-md w-full text-center space-y-4">
-                    <Ghost className="w-12 h-12 mx-auto text-nebula animate-pulse-slow" />
+                    <ShieldAlert className="w-12 h-12 mx-auto text-red-500 animate-pulse-slow" />
                     <h1 className="text-2xl font-bold">Restricted Area</h1>
-                    <p className="text-gray-400">Identify yourself, pilot.</p>
-                    <button
-                        onClick={() => setIsAuthorized(true)}
-                        className="w-full py-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-                    >
-                        Enter Passcode (Mock)
-                    </button>
+                    <p className="text-gray-400">Classified Access Only.</p>
+
+                    {user ? (
+                        <div className="text-sm text-red-400">
+                            User {user.email} is not authorized.
+                        </div>
+                    ) : (
+                        <button
+                            onClick={signInWithGoogle}
+                            className="w-full py-3 bg-nebula hover:bg-nebula-dim rounded-lg transition-colors font-bold"
+                        >
+                            Authenticate with Google
+                        </button>
+                    )}
                 </div>
             </main>
         )

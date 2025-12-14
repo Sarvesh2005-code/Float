@@ -4,13 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    // Placeholder - Update with actual config from console after creation
-    apiKey: "API_KEY",
-    authDomain: "float-portal-2025.firebaseapp.com",
-    projectId: "float-portal-2025",
-    storageBucket: "float-portal-2025.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID"
+    apiKey: "AIzaSyCjlW91UELl6MuGJ18de7_4mavCphiEXXE",
+    authDomain: "float-game-portal-v1.firebaseapp.com",
+    projectId: "float-game-portal-v1",
+    storageBucket: "float-game-portal-v1.firebasestorage.app",
+    messagingSenderId: "281358682292",
+    appId: "1:281358682292:web:7e9cd01dd0389317edefe1"
 };
 
 const app = initializeApp(firebaseConfig);
