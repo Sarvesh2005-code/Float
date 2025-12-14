@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Orbitron, Inter } from "next/font/google"; // Space-themed fonts
 import "./globals.css";
 import { AuthProvider } from "@/components/auth-provider";
+import { Navbar } from "@/components/layout/navbar";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -31,7 +32,10 @@ export default function RootLayout({
         className={`${orbitron.variable} ${inter.variable} antialiased bg-void text-starlight font-sans`}
       >
         <AuthProvider>
-          {children}
+          <Navbar />
+          <div className="pt-16 min-h-screen relative z-10">
+            {children}
+          </div>
         </AuthProvider>
       </body>
     </html>

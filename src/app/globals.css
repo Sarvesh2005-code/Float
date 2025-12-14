@@ -1,18 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  /* Starry Void Theme */
-  --background: #0a0a0f;
-  --foreground: #ededed;
+  /* Starry Void Palette */
+  --void: #030305;
+  --void-light: #0a0a12;
+  --starlight: #f8fafc;
+  --nebula: #6366f1;
+  --nebula-dim: #4338ca;
+  --glass: rgba(255, 255, 255, 0.05);
+
+  /* Fonts */
   --font-orbitron: 'Orbitron', sans-serif;
   --font-inter: 'Inter', sans-serif;
-  --void-light: #0a0a12;
-  /* Slightly Lighter */
-  --starlight: #ffffff;
-  --nebula: #a855f7;
-  /* Primary Purple */
-  --nebula-dim: #6b21a8;
-  --glass: rgba(255, 255, 255, 0.05);
 }
 
 @theme {
@@ -24,44 +23,44 @@
   --color-glass: var(--glass);
 
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes pulse-slow {
+
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
 }
 
-/* Animations */
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes pulse-slow {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Global Reset */
+/* Global Enforcement */
+html,
 body {
   background-color: var(--void);
   color: var(--starlight);
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
-  /* Prevent horizontal scroll from parallax */
+  min-height: 100vh;
 }
 
-/* Custom Utilities */
+/* Utility Classes */
 .glass-panel {
   background: var(--glass);
   backdrop-filter: blur(12px);
