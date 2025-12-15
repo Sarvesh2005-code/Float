@@ -341,6 +341,48 @@ export function GravityLander() {
                     </div>
                 </div>
             )}
+
+            {/* Touch Controls (Visible on mobile/tablet) */}
+            <div className="absolute bottom-10 left-0 right-0 px-8 flex justify-between items-end md:hidden pointer-events-none">
+                {/* Directional */}
+                <div className="flex gap-4 pointer-events-auto">
+                    <button
+                        className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 active:bg-nebula/50 transition-colors flex items-center justify-center"
+                        onTouchStart={() => (ship.current.rotatingLeft = true)}
+                        onTouchEnd={() => (ship.current.rotatingLeft = false)}
+                        onMouseDown={() => (ship.current.rotatingLeft = true)}
+                        onMouseUp={() => (ship.current.rotatingLeft = false)}
+                    >
+                        <span className="text-2xl">←</span>
+                    </button>
+                    <button
+                        className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 active:bg-nebula/50 transition-colors flex items-center justify-center"
+                        onTouchStart={() => (ship.current.rotatingRight = true)}
+                        onTouchEnd={() => (ship.current.rotatingRight = false)}
+                        onMouseDown={() => (ship.current.rotatingRight = true)}
+                        onMouseUp={() => (ship.current.rotatingRight = false)}
+                    >
+                        <span className="text-2xl">→</span>
+                    </button>
+                </div>
+
+                {/* Thrust */}
+                <button
+                    className="w-24 h-24 rounded-full bg-nebula/20 backdrop-blur-md border-2 border-nebula/50 active:bg-nebula active:scale-95 transition-all flex items-center justify-center pointer-events-auto"
+                    onTouchStart={() => {
+                        if (gameState !== "PLAYING") startGame();
+                        ship.current.thrusting = true;
+                    }}
+                    onTouchEnd={() => (ship.current.thrusting = false)}
+                    onMouseDown={() => {
+                        if (gameState !== "PLAYING") startGame();
+                        ship.current.thrusting = true;
+                    }}
+                    onMouseUp={() => (ship.current.thrusting = false)}
+                >
+                    <span className="text-xl font-bold">THRUST</span>
+                </button>
+            </div>
         </div>
     );
 }

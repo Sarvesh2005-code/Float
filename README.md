@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌌 FLOAT - Zero Gravity Game Portal
 
-## Getting Started
+**Float** is a next-generation web game portal built for speed, immersion, and zero-latency gaming. Featuring a deep "Void" aesthetic, parallax starfields, and a native physics-based mini-game.
 
-First, run the development server:
+![App Icon](src/app/icon.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*   **Zero-G Interface**: Deep dark mode with glassmorphism, floating cards, and smooth Framer Motion animations.
+*   **Gravity Lander**: A native, persistent physics mini-game (`/engage/gravity-lander`) playable on Desktop (Keyboard) and Mobile (Touch Controls).
+*   **Game Library**: Dynamic grid of uploaded games using **Firebase Firestore**.
+*   **Admin Studio**: Secure dashboard for uploading new titles (Thumbnail, Description, External Link).
+*   **Hybrid Storage**: Uses Firestore for metadata and external URLs for heavy binaries/assets to keep costs zero.
+*   **Responsive Core**: Fully adaptive `Navbar` with mobile drawer and touch-optimized layouts.
+*   **Security**: Firebase Authentication (Google Sign-In) and Route Protection.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*   **Framework**: Next.js 15 (Turbopack)
+*   **Styling**: Tailwind CSS v4 + Framer Motion
+*   **Backend**: Firebase (Auth, Firestore)
+*   **Deployment**: Vercel (Recommended)
 
-## Learn More
+## 🎮 How to Play
 
-To learn more about Next.js, take a look at the following resources:
+1.  **Visit**: Go to the `/engage` page.
+2.  **Gravity Lander**: Click the native card to launch the physics lander.
+    *   **Desktop**: Arrow Keys to Rotate/Thrust. Space to Start.
+    *   **Mobile**: On-screen Touch Controls.
+3.  **Library**: Browse and launch other hosted games.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  Clone the repository.
+2.  Install dependencies: `npm install`
+3.  Set up `.env.local` with your Firebase credentials.
+4.  Run: `npm run dev`
+5.  Build: `npm run build`
 
-## Deploy on Vercel
+## 👨‍💻 Admin Access
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The `/admin` route is protected. Ensure your email is authorized in the `admin/page.tsx` logic or Firestore rules to upload new games.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Built with Next.js & Tailwind by Sarvesh2005-code*
